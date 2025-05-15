@@ -1,0 +1,17 @@
+#Table of ATM haplotypes
+
+library(geneHapR)
+library(pegas)
+library(unikn) 
+
+hapResult <- import_hap(".../hapResult.txt")
+hapSummary <- hap_summary(hapResult)
+hap <- as.haplotype(hapSummary)
+
+colnames(hapSummary)[2:29] <- as.character(as.data.frame(hapSummary)[3,2:29])
+plotHapTable(hapSummary,
+             hapPrefix = "H",
+             displayIndelSize = 1, 
+             angle = 45,
+             replaceMultiAllele = TRUE,
+             ALLELE.color = "grey90")
