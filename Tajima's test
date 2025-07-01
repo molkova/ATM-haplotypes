@@ -1,0 +1,15 @@
+library(ape)
+library(pegas)
+library(readxl)
+#Prepare an file "Haplotypes.xlsx" consisting of the following 3 columns:
+#Hap - haplotype number,	haplotype - haplotype letters, frequency - haplotype frequency
+df <- read_excel("~.../Haplotypes.xlsx")
+df$frequency <- df$frequency*1000
+df1 <- df[,2:3]
+f <- df1[rep(seq_len(nrow(df1)), df$frequency),]
+v <- seq(1, nrow(f), by=1)
+name <- as.character(paste0("C",v))
+y <- t(sapply(strsplit(f$haplotype,""), tolower))
+colnames(y) <- c(#list of rs in haplotypes#)
+z <- as.DNAbin(y)
+tajima.test(z)
